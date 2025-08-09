@@ -1,0 +1,29 @@
+general:
+  # Ldap-sync will manage groups that have this attribute.
+  # Administrator cannot add/remove users from these groups or remove groups from other groups.
+  attrManagedByKey: 'managed-by'
+  attrManagedByValue: 'ldap-sync'
+  # This field will be populated with group description.
+  attrDescription: 'description'
+
+# Just a list of all groups that managed by ldap-sync. All this groups will be created automatically.
+# All groups that not listed here and have attrs grom `general.attrManagedByKey` will be deleted.
+# All other groups will be ignored.
+automatedGroups:
+  - name: x-int-gitlab-group-basic-developer
+    desc: 'Internal Gitlab: Group: basic; developer access'
+  - name: x-int-gitlab-group-project-maintainer
+    desc: 'Internal Gitlab: Group: project; maintainer'
+  - name: x-int-gitlab-group-project-developer
+    desc: 'Internal Gitlab: Group: project; developer'
+  - name: x-ext-aws-eu-central-msk-role_full
+    desc: 'External AWS: Region EU central; MSK; role: full'
+
+tree:
+  role-software-engineer:
+    - x-int-gitlab-group-basic-developer
+  team-a:
+    - x-int-gitlab-group-project-developer
+  team-a-maintainer:
+    - x-int-gitlab-group-project-maintainer
+    - x-ext-aws-eu-central-msk-role_full
